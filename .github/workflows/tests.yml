@@ -1,0 +1,21 @@
+name: Testes automatizados
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Checar sintaxe
+        run: python -m compileall -q cliente.py servidor.py teste_automatico.py
+      - name: Testar servidor TCP e protocolo
+        run: python teste_automatico.py
